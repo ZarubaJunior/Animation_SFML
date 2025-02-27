@@ -1,2 +1,12 @@
-﻿  Game.cpp
-  Animation.vcxproj -> C:\Митя\Art\Programming\Projects\Tests\Animation\Animation\Debug\Animation.exe
+﻿  Animation.cpp
+C:\Митя\Art\Programming\Projects\Tests\Strategy_Folder\V_0_0_1\Animation_SFML\Code\Animation.cpp(19,38): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Митя\Art\Programming\Projects\Tests\Strategy_Folder\V_0_0_1\Animation_SFML\Code\Animation.cpp(20,39): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+  Animation.vcxproj -> C:\Митя\Art\Programming\Projects\Tests\Strategy_Folder\V_0_0_1\Animation_SFML\Debug\Animation.exe

@@ -22,7 +22,7 @@ void Player::init(float x, float y, float sizeX, float sizeY)
 	this->playerSprite.setPosition(sf::Vector2f(playerPos.x, playerPos.y));
 	this->playerSprite.setTexture(playerTexture);
 
-	playerScaleX = 5; playerScaleY = 5;
+	playerScaleX = 3; playerScaleY = 3;
 	this->playerSprite.setScale(playerScaleX, playerScaleY);
 
 	sf::Vector2f spriteSize(playerSprite.getGlobalBounds().width, playerSprite.getGlobalBounds().height);
@@ -39,15 +39,19 @@ void Player::init(float x, float y, float sizeX, float sizeY)
 	std::cout << "Works";
 }
 
-void Player::update(float x, float y, float deltaTime)
+void Player::update(float x, float y, float mouseX, float mouseY, float deltaTime )
 {
 	this->playerRect.setPosition(playerPos.x, playerPos.y);
 	this->playerSprite.setPosition(playerPos.x, playerPos.y);
 	
 	this->deltaTime = deltaTime;
 
-	this->animation.update(animRow, deltaTime);
+	this->animation.update(animRow, isPlayerMoving, deltaTime);
 		this->playerSprite.setTextureRect(animation.uvRect);	
+
+	float anglePlayer = getAngle(x, y, mouseX, mouseY, false);
+
+	playerRect.setRotation(anglePlayer);
 }
 
 void Player::movePlayer(std::string keyboardInput)
@@ -94,6 +98,12 @@ void Player::movePlayer(std::string keyboardInput)
 		this->playerSprite.setScale(-playerScaleX, playerScaleY);
 		animationSelection("horizontal");
 	}
+
+	if (keyboardInput != "still") {
+		isPlayerMoving = true;
+	}
+	else
+		isPlayerMoving = false;
 }
 
 sf::Vector2i Player::returnPosition() {return sf::Vector2i(this->playerPos.x, this->playerPos.y);}
@@ -115,4 +125,19 @@ void Player::animationSelection(std::string name)
 	else if (name == "diagonalDown") {
 		animRow = 4;
 	}
+}
+
+float Player::getAngle(float x1, float y1, float x2, float y2, bool radOrAngles)
+{
+	float deltaX = x2 - x1;
+	float deltaY = y2 - y1;
+
+	float angleRadians = std::atan2(deltaY, deltaX);
+
+	if (!radOrAngles) {
+		float angleDegrees = angleRadians * (180.f / 3.141592657f);
+		return angleDegrees;
+	}
+	else
+		return angleRadians;
 }
